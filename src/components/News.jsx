@@ -24,23 +24,23 @@ constructor(){
         totalResults : 0
     }
 }
+
+capitalize = (word) => {
+    return (word[0].toUpperCase() + word.slice(1))
+}
 previousClick = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page-1}&pageSize=${this.state.pageSize}`;
     this.setState({loading : true})
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
     this.setState({newsArticles : data.articles, page : this.state.page-1, loading : false})
 }
-capitalize = (word) => {
-    return (word[0].toUpperCase() + word.slice(1))
-}
+
 nextClick = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page+1}&pageSize=${this.state.pageSize}`;
     this.setState({loading : true})
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
     this.setState({newsArticles : data.articles, page : this.state.page+1, loading : false})
 }
 async componentDidMount(){
@@ -48,7 +48,6 @@ async componentDidMount(){
     this.setState({loading : true})
     let response = await fetch(url);
     let data = await response.json();
-    console.log(data);
     this.setState({newsArticles : data.articles, totalResults : data.totalResults, loading : false}) // this also works - this.setState(this.state.newsArticles = data.articles);
 }
 render() {
