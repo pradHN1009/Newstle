@@ -17,7 +17,7 @@ static propTypes = {
 }
 
   render() {
-    let {title,description,imgUrl,newsUrl,mode} = this.props;
+    let {title,description,imgUrl,newsUrl,mode,author,date} = this.props;
     return (
       <div className = "my-3">
         <div className="card" style={{width: "100%", height: "450px", overflowY:"auto", backgroundColor:mode === "light" ? "white" : "#232D3F", scrollbarColor:mode === "light" ? "light" : "dark"}}>
@@ -25,6 +25,7 @@ static propTypes = {
             <div className={`card-body text-${mode === "light" ? "dark" : "light"}`}>
                 <h5 className="card-title">{title}</h5>
                 <p className="card-text">{description}</p>
+                <p class="card-text"><small>Last updated by {author} on {new Date(date).toUTCString()}</small></p>
                 <a href={newsUrl} rel="noreferrer" target="_blank" className="btn btn-sm btn-primary">Read more</a>
             </div>
         </div>

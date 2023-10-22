@@ -61,7 +61,7 @@ render() {
         <div className="row gx-3">
             {!this.state.loading && this.state.newsArticles.map((data)=>{
                 return <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3" key = {data.url}>
-                <NewsItem  title = {data.title} description = {data.description} imgUrl = {data.urlToImage} newsUrl = {data.url} mode = {mode}/>
+                <NewsItem  title = {data.title} description = {data.description} imgUrl = {data.urlToImage} newsUrl = {data.url} mode = {mode} author = {data.author} date = {data.publishedAt}/>
                 </div>
             })}
             </div>
