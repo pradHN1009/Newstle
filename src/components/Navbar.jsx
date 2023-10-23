@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import "./Navbar.css"
+
 export default class Navbar extends Component {
     static defaultProps = {
         mode : "light",
@@ -14,23 +16,21 @@ export default class Navbar extends Component {
     let {mode , toggleFunc} = this.props;
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme = {mode}>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary" id = "navbar" data-bs-theme = {mode}>
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/"><h4>Newstle</h4></Link>
+                <NavLink className="navbar-brand" to="/"><h4>Newstle</h4></NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/">General</a>
-                    </li>
-                    <li className="nav-item"><Link className="nav-link" to="/business">Business</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/entertainment">Entertainment</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/health">Health</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/science">Science</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/sports">Sports</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/technology">Technology</Link></li>
+                    <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} aria-current="page" to="/">General</NavLink></li>
+                    <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} to="/business">Business</NavLink></li>
+                    <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} to="/entertainment">Entertainment</NavLink></li>
+                    <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} to="/health">Health</NavLink></li>
+                    <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} to="/science">Science</NavLink></li>
+                    <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} to="/sports">Sports</NavLink></li>
+                    <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} to="/technology">Technology</NavLink></li>
                 </ul>
                 <div className="form-check form-switch">
                         <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onClick = {toggleFunc}/>

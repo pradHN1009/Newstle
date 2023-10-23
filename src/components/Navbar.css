@@ -1,0 +1,9 @@
+#navbar a.active:not(.navbar-brand) {
+    background-color: #1b1b1c;
+    border-radius: 10px;
+}
+
+#navbar a.active.light:not(.navbar-brand) {
+    background-color: #c9ced6;
+    border-radius: 10px;
+}
