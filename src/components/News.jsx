@@ -14,8 +14,8 @@ static propTypes = {
     country : PropTypes.string,
     categiry : PropTypes.string
 }
-constructor(){
-    super();
+constructor(props){
+    super(props);
     this.state = {
         newsArticles : [],
         loading : false,
@@ -23,6 +23,7 @@ constructor(){
         pageSize:20,
         totalResults : 0
     }
+    document.title = `Newstle - ${this.capitalize(this.props.category)}`
 }
 
 capitalize = (word) => {
