@@ -25,8 +25,8 @@ export class NewsItem extends Component {
           <div className={`card-body text-${mode === "light" ? "dark" : "light"}`}>
             <h5 className="card-title">{title}</h5>
             <p className="card-text">{description}</p>
-            <p class="card-text"><small>Last updated by {author} on {new Date(date).toUTCString()}</small></p>
-            <a href={newsUrl} rel="noreferrer" target="_blank" className="btn btn-sm btn-primary">Read more</a>
+            <p className="card-text"><small>Last updated by {author} on {new Date(date).toUTCString()}</small></p>
+            <a href={newsUrl} rel="noreferrer" target="_blank" className={`btn btn-sm btn-${mode === "light" ? "primary" : "dark"}`}>Read more</a>
           </div>
         </div>
       </div>

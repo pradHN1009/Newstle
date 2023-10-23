@@ -28,27 +28,24 @@ constructor(){
 capitalize = (word) => {
     return (word[0].toUpperCase() + word.slice(1))
 }
-previousClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page-1}&pageSize=${this.state.pageSize}`;
-    this.setState({loading : true})
-    let response = await fetch(url);
-    let data = await response.json();
-    this.setState({newsArticles : data.articles, page : this.state.page-1, loading : false})
-}
-
-nextClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page+1}&pageSize=${this.state.pageSize}`;
-    this.setState({loading : true})
-    let response = await fetch(url);
-    let data = await response.json();
-    this.setState({newsArticles : data.articles, page : this.state.page+1, loading : false})
-}
-async componentDidMount(){
+updateNews = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page}&pageSize=${this.state.pageSize}`;
     this.setState({loading : true})
     let response = await fetch(url);
     let data = await response.json();
-    this.setState({newsArticles : data.articles, totalResults : data.totalResults, loading : false}) // this also works - this.setState(this.state.newsArticles = data.articles);
+    this.setState({newsArticles : data.articles, totalResults : data.totalResults, loading : false})
+}
+previousClick = async () => {
+    this.setState({page:this.state.page - 1})
+    this.updateNews()
+}
+
+nextClick = async () => {
+    this.setState({page:this.state.page + 1})
+    this.updateNews()
+}
+async componentDidMount(){
+    this.updateNews()
 }
 render() {
     const {mode, category} = this.props;
@@ -66,8 +63,8 @@ render() {
             })}
             </div>
         <div className="container my-3 d-flex justify-content-between">
-        <button type="button" disabled = {this.state.page<=1?true:false} class="btn btn-primary" onClick = {this.previousClick}>&larr; Previous</button>
-        <button type="button" disabled = {this.state.page+1>Math.ceil(this.state.totalResults/this.state.pageSize)} class="btn btn-primary" onClick = {this.nextClick}>Next &rarr;</button>
+        <button type="button" disabled = {this.state.page<=1?true:false} className={`btn btn-${mode === "light" ? "primary" : "dark"}`} onClick = {this.previousClick}>&larr; Previous</button>
+        <button type="button" disabled = {this.state.page+1>Math.ceil(this.state.totalResults/this.state.pageSize)} className={`btn btn-${mode === "light" ? "primary" : "dark"}`} onClick = {this.nextClick}>Next &rarr;</button>
         </div>
      </div>
     )

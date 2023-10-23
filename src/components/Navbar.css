@@ -4,6 +4,7 @@
 }
 
 #navbar a.active.light:not(.navbar-brand) {
-    background-color: #c9ced6;
+    background-color: #0d6efd;
+    color: white;
     border-radius: 10px;
 }
