@@ -32,13 +32,6 @@ constructor(props){
 capitalize = (word) => {
     return (word[0].toUpperCase() + word.slice(1))
 }
-updateNews = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page}&pageSize=${this.state.pageSize}`;
-    this.setState({loading : true})
-    let response = await fetch(url);
-    let data = await response.json();
-    this.setState({newsArticles : data.articles, totalResults : data.totalResults, loading : false})
-}
 fetchMoreData = async () => {
     this.setState({page : this.state.page+1 })
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page}&pageSize=${this.state.pageSize}`;
@@ -48,7 +41,16 @@ fetchMoreData = async () => {
     this.setState({newsArticles : this.state.newsArticles.concat(data.articles), totalResults : data.totalResults, hasMore : this.state.newsArticles.length < this.state.totalResults})
 }
 async componentDidMount(){
-    this.updateNews()
+    this.props.setProgress(10)
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+    this.setState({loading : true})
+    this.props.setProgress(20)
+    let response = await fetch(url);
+    this.props.setProgress(40)
+    let data = await response.json();
+    this.props.setProgress(70)
+    this.setState({newsArticles : data.articles, totalResults : data.totalResults, loading : false})
+    this.props.setProgress(100)
 }
 render() {
     const {mode, category} = this.props;
