@@ -34,7 +34,7 @@ capitalize = (word) => {
 }
 fetchMoreData = async () => {
     this.setState({page : this.state.page+1 })
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.state.pageSize}`;
     let response = await fetch(url);
     let data = await response.json();
     console.log(data)
@@ -42,7 +42,7 @@ fetchMoreData = async () => {
 }
 async componentDidMount(){
     this.props.setProgress(10)
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=05edbb607b1a4bd481fef3f953a611d2&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.state.pageSize}`;
     this.setState({loading : true})
     this.props.setProgress(20)
     let response = await fetch(url);

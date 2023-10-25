@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
 
 export default class App extends Component {
+    apiKey = process.env.REACT_APP_API_KEY
     constructor(){
         super();
         this.state = {
@@ -39,14 +40,14 @@ export default class App extends Component {
       />
         <div className="container my-3">
             <Routes>
-                <Route exact path="/" element={<News setProgress={this.setProgress} key="general" mode = {this.state.mode} country = {this.state.country} category = "general" />}/> 
-                <Route exact path="/general" element={<News setProgress={this.setProgress} key="general" mode = {this.state.mode} country = {this.state.country} category = "general" />}/>
-                <Route exact path="/business" element={<News setProgress={this.setProgress} key="business" mode = {this.state.mode} country = {this.state.country} category = "business" />}/>
-                <Route exact path="/entertainment" element={<News setProgress={this.setProgress} key="entertainment" mode = {this.state.mode} country = {this.state.country} category = "entertainment" />}/>
-                <Route exact path="/health" element={<News setProgress={this.setProgress} key="health" mode = {this.state.mode} country = {this.state.country} category = "health" />}/>
-                <Route exact path="/science" element={<News setProgress={this.setProgress} key="science" mode = {this.state.mode} country = {this.state.country} category = "science" />}/>
-                <Route exact path="/sports" element={<News setProgress={this.setProgress} key="sports" mode = {this.state.mode} country = {this.state.country} category = "sports" />}/>
-                <Route exact path="/technology" element={<News setProgress={this.setProgress} key="technology" mode = {this.state.mode} country = {this.state.country} category = "technology" />}/>
+                <Route exact path="/" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="general" mode = {this.state.mode} country = {this.state.country} category = "general" />}/> 
+                <Route exact path="/general" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="general" mode = {this.state.mode} country = {this.state.country} category = "general" />}/>
+                <Route exact path="/business" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="business" mode = {this.state.mode} country = {this.state.country} category = "business" />}/>
+                <Route exact path="/entertainment" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="entertainment" mode = {this.state.mode} country = {this.state.country} category = "entertainment" />}/>
+                <Route exact path="/health" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="health" mode = {this.state.mode} country = {this.state.country} category = "health" />}/>
+                <Route exact path="/science" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="science" mode = {this.state.mode} country = {this.state.country} category = "science" />}/>
+                <Route exact path="/sports" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="sports" mode = {this.state.mode} country = {this.state.country} category = "sports" />}/>
+                <Route exact path="/technology" element={<News setProgress={this.setProgress} apiKey = {this.apiKey} key="technology" mode = {this.state.mode} country = {this.state.country} category = "technology" />}/>
             </Routes>
             </div>
         </BrowserRouter>
