@@ -36,7 +36,7 @@ export default class Navbar extends Component {
                     <li className="nav-item"><NavLink className={`nav-link ${mode === 'light' ? 'light' : 'dark'}`} to="/technology">Technology</NavLink></li>
                 </ul>
                 <input type="checkbox" className="btn-check" id="btn-check-4" autoComplete="off" onClick={toggleFunc}/>
-                <label className={`btn btn-${mode === "light" ? "primary" : "dark"}`} htmlFor="btn-check-4">Dark Mode</label>
+                <label className={`btn btn-${mode === "light" ? "primary" : "dark"}`} htmlFor="btn-check-4">{mode === "light" ? "Dark" : "Light"} Mode</label>
                 </div>
             </div>
             </nav>
