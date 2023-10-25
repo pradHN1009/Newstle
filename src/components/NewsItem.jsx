@@ -1,23 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-export class NewsItem extends Component {
-  static defaultProps = {
-    title : "News Title",
-    description : "News Description",
-    imgUrl : "https://www.northampton.ac.uk/wp-content/uploads/2018/11/default-svp_news.jpg",
-    newsUrl : "/",
-    mode : "light"
-}
-  static propTypes = {
-    title : PropTypes.string,
-    description : PropTypes.string,
-    imgUrl : PropTypes.string,
-    newsUrl : PropTypes.string,
-    mode : PropTypes.string
-}
-
-  render() {
-    let {title,description,imgUrl,newsUrl,mode,author,date} = this.props;
+const NewsItem = (props) =>  {
+    let {title,description,imgUrl,newsUrl,mode,author,date} = props;
     return (
       <div className = "my-3">
         <div className="card" style={{width: "100%", height: "450px", overflowY:"auto", backgroundColor:mode === "light" ? "white" : "#232D3F", scrollbarColor:mode === "light" ? "light" : "dark"}}>
@@ -31,7 +15,21 @@ export class NewsItem extends Component {
         </div>
       </div>
     )
-  }
+}
+
+NewsItem.defaultProps = {
+    title : "News Title",
+    description : "News Description",
+    imgUrl : "https://www.northampton.ac.uk/wp-content/uploads/2018/11/default-svp_news.jpg",
+    newsUrl : "/",
+    mode : "light"
+}
+NewsItem.propTypes = {
+    title : PropTypes.string,
+    description : PropTypes.string,
+    imgUrl : PropTypes.string,
+    newsUrl : PropTypes.string,
+    mode : PropTypes.string
 }
 
 export default NewsItem
