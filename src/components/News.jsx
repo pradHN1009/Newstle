@@ -1,73 +1,71 @@
-import React, { Component } from 'react'
+import React, {useEffect, useState} from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 
-export default class News extends Component {
-static defaultProps = {
-    mode : "light",
-    country : "in",
-    category : "general"
-}
-static propTypes = {
-    mode : PropTypes.string,
-    country : PropTypes.string,
-    categiry : PropTypes.string
-}
-constructor(props){
-    super(props);
-    this.state = {
-        newsArticles : [],
-        loading : false,
-        page:1,
-        pageSize:20,
-        totalResults : 0,
-        hasMore : true
-    }
-    document.title = `Newstle - ${this.capitalize(this.props.category) }`
-}
+const News = (props) =>  {
+const [newsArticles, setnewsArticles] = useState([])
+const [loading, setloading] = useState(false)
+const [page, setpage] = useState(1)
+const [pageSize, setpageSize] = useState(20)
+const [totalResults, settotalResults] = useState(0)
+const [hasMore, sethasMore] = useState(true)
+const {setProgress, apiKey, mode, country, category} = props;
 
-capitalize = (word) => {
+
+
+const capitalize = (word) => {
     return (word[0].toUpperCase() + word.slice(1))
 }
-fetchMoreData = async () => {
-    this.setState({page : this.state.page+1 })
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.state.pageSize}`;
+
+document.title = `Newstle - ${capitalize(category)}`
+const fetchMoreData = async () => {
+    setpage(page+1)
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
     let response = await fetch(url);
     let data = await response.json();
     console.log(data)
-    this.setState({newsArticles : this.state.newsArticles.concat(data.articles), totalResults : data.totalResults, hasMore : this.state.newsArticles.length < this.state.totalResults})
+    setnewsArticles(newsArticles.concat(data.articles))
+    settotalResults(data.totalResults)
+    sethasMore(newsArticles.length < totalResults)
 }
-async componentDidMount(){
-    this.props.setProgress(10)
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.state.pageSize}`;
-    this.setState({loading : true})
-    this.props.setProgress(20)
+
+const updateNews = async () => {
+    setProgress(10)
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
+    setloading(true)
+    setProgress(20)
     let response = await fetch(url);
-    this.props.setProgress(40)
+    setProgress(40)
     let data = await response.json();
-    this.props.setProgress(70)
-    this.setState({newsArticles : data.articles, totalResults : data.totalResults, loading : false})
-    this.props.setProgress(100)
+    setProgress(70)
+    setnewsArticles(data.articles)
+    settotalResults(data.totalResults)
+    setloading(false)
+    setProgress(100)
 }
-render() {
-    const {mode, category} = this.props;
+useEffect(() => {
+  updateNews()
+}, [])
+
+
+
     return (
       <>
         <div className={`container my-3 text-${mode === "light" ? "dark" : "light"}`}>
-            <h1 className= "text-center" style={{margin : "35px"}}>Top {this.capitalize(category)} Headlines</h1>
+            <h1 className= "text-center" style={{margin : "35px"}}>Top {capitalize(category)} Headlines</h1>
         </div>
         <InfiniteScroll
-          dataLength={this.state.newsArticles.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.hasMore}
+          dataLength={newsArticles.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
           loader={<Spinner/>}
         >
             <div className="container">
                 <div className="row gx-3">
-                    {this.state.newsArticles.map((data,index)=>{
+                    {newsArticles.map((data,index)=>{
                         return <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3" key = {index}>
                         <NewsItem  title = {data.title} description = {data.description} imgUrl = {data.urlToImage} newsUrl = {data.url} mode = {mode} author = {data.author} date = {data.publishedAt}/>
                         </div>
@@ -77,5 +75,21 @@ render() {
             </InfiniteScroll>
             </>
     )
-  }
 }
+
+News.defaultProps = {
+    setProgress : () => {},
+    apiKey : "",
+    mode : "light",
+    country : "in",
+    category : "general"
+}
+News.propTypes = {
+    setProgress : PropTypes.func,
+    apiKey : PropTypes.string,
+    mode : PropTypes.string,
+    country : PropTypes.string,
+    categiry : PropTypes.string
+}
+
+export default News
