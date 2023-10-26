@@ -6,7 +6,7 @@ import "./Navbar.css"
 const Navbar= (props) => {
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary" id = "navbar" data-bs-theme = {props.mode}>
+        <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary" id = "navbar" data-bs-theme = {props.mode}>
             <div className="container-fluid">
                 <NavLink className="navbar-brand" to="/"><h4 style = {{marginTop : "7px"}}>Newstle</h4></NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -53,7 +53,7 @@ const News = (props) => {
       <div
         className={`container my-3 text-${mode === "light" ? "dark" : "light"}`}
       >
-        <h1 className="text-center" style={{ margin: "35px" }}>
+        <h1 className="text-center" style={{ margin: "35px", marginTop : "100px" }}>
           Top {capitalize(category)} Headlines
         </h1>
       </div>
