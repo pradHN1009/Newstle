@@ -19,8 +19,8 @@ const News = (props) => {
 
   document.title = `Newstle - ${capitalize(category)}`;
   const fetchMoreData = async () => {
+    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page+1}&pageSize=${pageSize}`;
     setpage(page + 1);
-    let url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
     let response = await fetch(url);
     let data = await response.json();
     console.log(data);
